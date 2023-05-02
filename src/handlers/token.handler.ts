@@ -21,7 +21,7 @@ export default function token(req: IncomingMessage, res: ServerResponse) {
       limit[token] = 0;
       res.writeHead(200, { "Content-Type": "text/plain" });
       res.end(token);
-    } catch (error: Error | unknown) {
+    } catch (error) {
       console.error(error);
       res.writeHead(400, { "Content-Type": "text/plain" });
       res.end(error instanceof Error ? error.message : "Bad request");

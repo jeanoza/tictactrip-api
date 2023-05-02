@@ -11,7 +11,7 @@ import * as JwtModule from "../modules/jwt.module";
  * Comme j'ai fait de mon mieux(pendant 2 jours), j'arrête ici.
  * mais je veux bien que tu m'explique comment tu as fait:)
  */
-function breakText(text: string) {
+export function breakText(text: string) {
   return text.replace(/(.{1,80})(\s+|$)/g, "$1\n");
 }
 
@@ -33,7 +33,7 @@ export default function justify(req: IncomingMessage, res: ServerResponse) {
       }
       res.writeHead(200, { "Content-Type": "text/plain" });
       res.end(result);
-    } catch (error: Error | unknown) {
+    } catch (error) {
       console.error(error);
       res.writeHead(400, { "Content-Type": "text/plain" });
       res.end(error instanceof Error ? error.message : "Bad request");

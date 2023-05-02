@@ -13,12 +13,7 @@ function breakText(text: string) {
   return text.replace(/(.{1,80})(\s+|$)/g, "$1\n");
 }
 
-export function root(req: IncomingMessage, res: ServerResponse) {
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("root");
-}
-
-export function justify(req: IncomingMessage, res: ServerResponse) {
+export default function justify(req: IncomingMessage, res: ServerResponse) {
   let body = "";
   req.on("data", (chunk) => {
     body += chunk.toString();
@@ -34,9 +29,4 @@ export function justify(req: IncomingMessage, res: ServerResponse) {
       res.end("Bad Request");
     }
   });
-}
-
-export function token(req: IncomingMessage, res: ServerResponse) {
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("token");
 }

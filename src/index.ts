@@ -1,15 +1,19 @@
 import http, { IncomingMessage, ServerResponse } from "http";
 import router from "./router";
+import dotenv from "dotenv";
 
-const port = 4221;
-const hostname = "localhost";
+dotenv.config();
+
+const port = Number(process.env.PORT);
+const host: string =
+  process.env.NODE_ENV === "development" ? "localhost" : "PROD_URL";
 
 const server = http.createServer(
-	(req: IncomingMessage, res: ServerResponse) => {
-		router.handle(req, res);
-	}
+  (req: IncomingMessage, res: ServerResponse) => {
+    router.handle(req, res);
+  }
 );
 
-server.listen(port, hostname, () => {
-	console.log(`Server running at http://${hostname}:${port}/`);
+server.listen(port, host, () => {
+  console.log(`Server running at http://${host}:${port}/`);
 });

@@ -1,5 +1,6 @@
 import { IncomingMessage, ServerResponse } from "http";
-import jwt from "jsonwebtoken";
+import * as JwtModule from "../modules/jwt.module";
+import limit from "../modules/limit.modules";
 
 function validateEmail(email: string) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -16,11 +17,8 @@ export default function token(req: IncomingMessage, res: ServerResponse) {
       const email = JSON.parse(body).email;
       if (!validateEmail(email)) throw new Error("Email invalid");
 
-      console.log(process.env.JWT_SECRET);
-
-      const token = jwt.sign({ email: "foo@bar.com" }, "secret", {
-        expiresIn: "1d",
-      });
+      const token = JwtModule.generate(email);
+      limit[token] = 0;
       res.writeHead(200, { "Content-Type": "text/plain" });
       res.end(token);
     } catch (error: Error | unknown) {

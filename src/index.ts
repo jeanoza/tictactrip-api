@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const port = process.env.PORT;
+const port = process.env.PORT || 4221;
 const nodeEnv = process.env.NODE_ENV;
 
 const server = http.createServer(

@@ -4,9 +4,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const port = Number(process.env.PORT);
-const host: string =
-  process.env.NODE_ENV === "development" ? "localhost" : "PROD_URL";
+const port = process.env.PORT;
+const nodeEnv = process.env.NODE_ENV;
 
 const server = http.createServer(
   (req: IncomingMessage, res: ServerResponse) => {
@@ -14,6 +13,6 @@ const server = http.createServer(
   }
 );
 
-server.listen(port, host, () => {
-  console.log(`Server running at http://${host}:${port}/`);
+server.listen(port, () => {
+  console.log(`[${nodeEnv}]Server running at http://localhost:${port}/`);
 });

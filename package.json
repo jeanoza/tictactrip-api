@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development npx nodemon",
     "start": "NODE_ENV=production  node dist/index.js",
-    "build": "npm install && tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json",
     "clean": "rm -rf dist",
     "test": "jest --verbose"
   },

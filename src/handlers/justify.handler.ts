@@ -2,6 +2,8 @@ import { IncomingMessage, ServerResponse } from "http";
 import limit from "../modules/limit.modules";
 import * as JwtModule from "../modules/jwt.module";
 
+const LIMIT_BY_DAY = 80000;
+
 /**
  * J'ai essayé sans regex afin de mettre le dernier mot à la même position
  * en ajoutant espace entre les mots.
@@ -29,13 +31,14 @@ export default function justify(req: IncomingMessage, res: ServerResponse) {
       if (token) {
         if (limit[token] === undefined)
           throw new Error("Need to generate token to request");
+        if (limit[token] > LIMIT_BY_DAY) throw new Error("Payment required");
         if (wordCount && JwtModule.verify(token)) limit[token] += wordCount;
       }
       res.writeHead(200, { "Content-Type": "text/plain" });
       res.end(result);
     } catch (error) {
       console.error(error);
-      res.writeHead(400, { "Content-Type": "text/plain" });
+      res.writeHead(402, { "Content-Type": "text/plain" });
       res.end(error instanceof Error ? error.message : "Bad request");
     }
   });

@@ -2,7 +2,7 @@ import { IncomingMessage, ServerResponse } from "http";
 import * as JwtModule from "../modules/jwt.module";
 import limit from "../modules/limit.modules";
 
-function validateEmail(email: string) {
+export function validateEmail(email: string) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
 }
